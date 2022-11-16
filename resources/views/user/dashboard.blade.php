@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('user.user')
 
 @section('title', 'Crime Reporting System')
 

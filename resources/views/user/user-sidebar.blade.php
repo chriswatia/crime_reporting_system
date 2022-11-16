@@ -34,6 +34,7 @@
             <i class="fas fa-fw fa-list"></i>
             <span>Assigned Crimes</span></a>
     </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -51,16 +52,7 @@
             <i class="fas fa-fw fa-list"></i>
             <span>Roles</span></a>
     </li>
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Configurations
-    </div>
-    <li class="nav-item">
-        <a class="nav-link" href="/admin/crime_categories">
-            <i class="fas fa-fw fa-list"></i>
-            <span>Crime Categories</span></a>
-    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
