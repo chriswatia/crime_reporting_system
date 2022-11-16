@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableCrimeProgress extends Migration
+class CreateTableCrimeAssignment extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,18 @@ class CreateTableCrimeProgress extends Migration
      */
     public function up()
     {
-        Schema::create('crime_progress', function (Blueprint $table) {
+        Schema::create('crime_assignment', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('officer_id');
             $table->unsignedBigInteger('crime_id');
-            $table->text('descrption');
+            $table->boolean('status')->default(true);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
-            $table->foreign('crime_id')->references('id')->on('crimes')->onDelete('cascade');
+            $table->foreign('officer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('crime_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -32,6 +35,6 @@ class CreateTableCrimeProgress extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_crime_progress');
+        Schema::dropIfExists('crime_assignment');
     }
 }

@@ -13,9 +13,16 @@ class CreateTableCrimeCategories extends Migration
      */
     public function up()
     {
-        Schema::create('table_crime_categories', function (Blueprint $table) {
+        Schema::create('crime_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('category_code');
+            $table->string('category_name');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
+
+            //Foreign
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -26,6 +33,6 @@ class CreateTableCrimeCategories extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_crime_categories');
+        Schema::dropIfExists('crime_categories');
     }
 }
