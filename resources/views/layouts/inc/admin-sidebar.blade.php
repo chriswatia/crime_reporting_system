@@ -45,7 +45,7 @@
             <span>Crime Categories</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/admin/crime_categories">
+        <a class="nav-link" href="#">
             <i class="fas fa-fw fa-list"></i>
             <span>Investigation Officers</span></a>
     </li>
