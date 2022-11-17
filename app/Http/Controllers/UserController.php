@@ -25,6 +25,12 @@ class UserController extends Controller
         return view('auth.users.edit', compact('user','roles'));
     }
 
+    public function editProfile($id){
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        return view('auth.users.profile.edit', compact('user','roles'));
+    }
+
     public function update(Request $request, $id)
     {
         $data = $request->all();
@@ -35,6 +41,15 @@ class UserController extends Controller
         return redirect('admin/users')->with('message', "User updated successfully");
     }
 
+    public function updateProfile(Request $request, $id)
+    {
+        $data = $request->all();
+
+        $user = User::findOrFail($id);
+        $user->update($data);
+
+        return redirect('/')->with('message', "User updated successfully");
+    }
     public function destroy($id)
     {
         $user = User::findOrFail($id);

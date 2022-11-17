@@ -60,6 +60,11 @@
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Profile
                     </a>
+                @else
+                <a class="dropdown-item" href="{{ url('profile/' . Auth::user()->id) }}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                </a>
                 @endif
 
                 {{-- <a class="dropdown-item" href="#">

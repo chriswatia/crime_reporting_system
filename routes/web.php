@@ -17,6 +17,19 @@ Auth::routes();
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/', [App\Http\Controllers\UserDashboardController::class, 'index']);
+
+    //Update profile
+    Route::get('profile/{id}', [App\Http\Controllers\UserController::class, 'editProfile']);
+    Route::put('profile/{id}', [App\Http\Controllers\UserController::class, 'updateProfile']);
+
+    //REPORT CRIME ROUTES
+    Route::get('crimes', [App\Http\Controllers\CrimeController::class, 'index']);
+    Route::get('add-crime', [App\Http\Controllers\CrimeController::class, 'create']);
+    Route::post('add-crime', [App\Http\Controllers\CrimeController::class, 'store']);
+    Route::get('edit-crime/{id}', [App\Http\Controllers\CrimeController::class, 'edit']);
+    Route::put('edit-crime/{id}', [App\Http\Controllers\CrimeController::class, 'update']);
+    Route::get('delete-crime/{id}', [App\Http\Controllers\CrimeController::class, 'destroy']);
+    Route::get('crime_status/{id}', [App\Http\Controllers\CrimeController::class, 'edit']);
 });
 
 Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function(){
