@@ -1,4 +1,4 @@
-@extends('user.user')
+@extends('layouts.master')
 
 @section('title', 'Reported Crimes')
 
@@ -7,7 +7,7 @@
         <div class="card mt-4">
             <div class="card-header">
                 <h4 class="">Reported Crime
-                    <a href="{{ url('/add-crime') }}" class="btn btn-primary btn-sm float-end">Report Crime
+                    <a href="{{ url('/admin/add-crime') }}" class="btn btn-primary btn-sm float-end">Report Crime
                         </a>
                 </h4>
             </div>
@@ -22,6 +22,8 @@
                             <th>Crime</th>
                             <th>Description</th>
                             <th>Location</th>
+                            <th>Device</th>
+                            <th>Mac/Ip Address</th>
                             <th>Status</th>
                             <th>Date Reported</th>
                             <th>Action</th>
@@ -33,12 +35,19 @@
                                 <td>{{ $crime->id }}</td>
                                 <td>{{ App\Models\CrimeCategory::where('id', $crime->category_id)->first()->category_name }}</td>
                                 <td>{{ $crime->description }}</td>  
-                                <td>{{ $crime->crime_location }}</td>           
+                                <td>{{ $crime->crime_location }}</td>     
+                                <td>{{ Str::limit($crime->device_type,31) }}</td>  
+                                <td>{{ $crime->mac_address }}</td>         
                                 <td>{{ $crime->status }}</td>                          
                                 <td>{{ $crime->created_at->toDateString() }}</td>
                                 <td>
-                                    <a class="btn btn-success btn-sm" href="{{ url('crime_status/' . $crime->id) }}">View Progress</a>
-                                    {{-- <a class="btn btn-danger btn-sm" href="{{ url('admin/delete-crime_category/' . $crime->id) }}">Delete</a> --}}
+                                    
+                                    @if (!isset(App\Models\Crime::leftJoin('crime_assignment as ca', 'crimes.id', 'ca.crime_id')->where('crimes.id', $crime->id)->whereNull('crime_id')->first()->id))
+                                      <a class="btn btn-primary btn-sm" href="{{ url('admin/assign' . $crime->id) }}">Assign</a>
+                                        @else
+                                        <a class="btn btn-success btn-sm" href="{{ url('admin/crime_status/' . $crime->id) }}">View Progress</a>
+                                    @endif
+                                    
 
                                 </td>
 

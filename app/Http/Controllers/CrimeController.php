@@ -10,12 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class CrimeController extends Controller
 {
     public function index(){
-        if(Auth::user()->role_id == 1){
-            $crimes = Crime::all();
-        }else{
-            $crimes = Crime::where('created_by', Auth::user()->id)->get();
-        }
-        
+        $crimes = Crime::where('created_by', Auth::user()->id)->get();        
         return view('user.crime.index', compact('crimes'));
     }
 
@@ -32,6 +27,9 @@ class CrimeController extends Controller
         $data['created_by'] = Auth::user()->id;
         $data['device_type'] = $request->header('User-Agent');
         $data['mac_address'] = exec('getmac');
+        if(!isset($data->mac_address)){
+            $data['mac_address'] = \Request::ip();
+        }
         $data['status'] = 'Submitted';
         $crime->create($data);
 

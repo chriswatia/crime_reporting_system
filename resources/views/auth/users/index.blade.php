@@ -51,7 +51,7 @@
                                 <td>{{ $role }}</td>
                                 <td>{{ $user->created_at->toDateString() }}</td>
                                 <td>
-                                    <a class="btn btn-success btn-sm" href="{{ url('admin/edit-user/' . $user->id) }}">Edit</a> |
+                                    <a class="btn btn-primary btn-sm" href="{{ url('admin/edit-user/' . $user->id) }}">Edit</a> |
                                     <a class="btn btn-danger btn-sm" href="{{ url('admin/delete-user/' . $user->id) }}">Delete</a>
 
                                 </td>

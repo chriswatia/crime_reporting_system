@@ -51,4 +51,13 @@ Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function(){
     Route::get('edit-crime_category/{id}', [App\Http\Controllers\CrimeCategoryController::class, 'edit']);
     Route::put('edit-crime_category/{id}', [App\Http\Controllers\CrimeCategoryController::class, 'update']);
     Route::get('delete-crime_category/{id}', [App\Http\Controllers\CrimeCategoryController::class, 'destroy']);
+
+    //REPORT CRIME ROUTES
+    Route::get('crimes', [App\Http\Controllers\Admin\DashboardController::class, 'reportedCrimes']);
+    Route::get('add-crime', [App\Http\Controllers\Admin\DashboardController::class, 'create']);
+    Route::post('add-crime', [App\Http\Controllers\Admin\DashboardController::class, 'store']);
+    Route::get('edit-crime/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'edit']);
+    Route::put('edit-crime/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'update']);
+    Route::get('delete-crime/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'destroy']);
+    Route::get('crime_status/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'edit']);
 });

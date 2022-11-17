@@ -36,6 +36,9 @@ class LoginController extends Controller
         else if(Auth::user()->role_id == '3'){
             return redirect('/officer')->with('status', "Welcome to Investigation Officer Dashboard");
         }
+        else if(Auth::user()->role_id == '2'){
+            return redirect('/')->with('status', "Welcome to Investigation Officer Dashboard");
+        }
         else{
             return redirect('/')->with('status', "Login successful");
         }

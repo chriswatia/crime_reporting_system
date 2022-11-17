@@ -2,12 +2,63 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Crime;
 use Illuminate\Http\Request;
+use App\Http\Requests\CrimeRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
         return view('admin.dashboard');
+    }
+
+    public function reportedCrimes(){
+        $crimes = Crime::all();        
+        return view('admin.crime.index', compact('crimes'));
+    }
+
+    public function create(){
+        return view('admin.crime.create');
+    }
+
+    public function store(CrimeRequest $request)
+    {
+        $data = $request->validated();
+
+        $crime = new Crime;
+        $data['created_by'] = Auth::user()->id;
+        $data['device_type'] = $request->header('User-Agent');
+        $data['mac_address'] = exec('getmac');
+        if(!isset($data->mac_address)){
+            $data['mac_address'] = \Request::ip();
+        }
+        $data['status'] = 'Submitted';
+        $crime->create($data);
+
+        return redirect('admin/crimes')->with('message', "Crime reported successfully");
+    }
+
+    public function edit($id){
+        $crime = Crime::findOrFail($id);
+        return view('admin.crime.edit', compact('crime'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $crime = Crime::findOrFail($id);
+        $crime->update($data);
+
+        return redirect('admin/crimes')->with('message', "Crime updated successfully");
+    }
+
+    public function destroy($id)
+    {
+        $crime = Crime::findOrFail($id);
+        $crime->delete();
+
+        return redirect('admin/crimes')->with('message', "Crime deleted successfully");
     }
 }
