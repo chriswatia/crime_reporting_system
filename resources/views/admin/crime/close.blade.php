@@ -9,7 +9,7 @@
                 <h4 class="">Add Crime Evidence</h4>
             </div>
             <div class="card-body">
-                <form action="{{ url('/admin/add-evidence/' . $crime->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('/admin/crime-close/' . $crime->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -41,16 +41,12 @@
                         <textarea name="" readonly class="form-control">{{ $crime->description }}</textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="">Describe Evidence</label>
+                        <label for="">Comments</label>
                         <textarea name="description" class="form-control" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="">File</label>
-                        <input type="file" name="file" id="" class="form-control">
                     </div>
                     <input type="text" name="crime_id" value="{{ $crime->id }}" hidden>
                     <div class="row">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-danger">Close Crime</button>
                     </div>
                 </form>
             </div>

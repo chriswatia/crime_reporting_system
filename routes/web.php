@@ -67,7 +67,8 @@ Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function(){
     Route::get('crimes_under_investigation', [App\Http\Controllers\Admin\DashboardController::class, 'crimes_under_investigation']);
     Route::get('add-evidence/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'crimeEvidence']);
     Route::put('add-evidence/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'crimeAddEvidence']);
-    
+    Route::get('crime-close/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'crimeClose']);
+    Route::put('crime-close/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'closeCrime']);
 
     //INVESTIGATING OFFICERS
     Route::get('investigating_officers', [App\Http\Controllers\InvestigatingOfficerController::class, 'index']);

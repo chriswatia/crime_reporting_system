@@ -51,6 +51,7 @@
                                 <th>ID</th>
                                 <th>Update Status</th>
                                 <th>Last Updated</th>
+                                <th>File</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +59,12 @@
                                 <tr>
                                     <td>{{ $crime_progress->id }}</td>
                                     <td>{{ $crime_progress->description }}</td>                                
-                                    <td>{{ $crime_progress->updated_at->toDateString() }}</td>    
+                                    <td>{{ $crime_progress->updated_at->toDateString() }}</td>  
+                                    <td>
+                                        @if ($crime_progress->file)
+                                        <a href="{{ asset('uploads/' . $crime_progress->file) }}" target="_blank" rel="noopener noreferrer">View File</a>
+                                        @endif
+                                    </td>  
                                 </tr>
                             @endforeach
                         </tbody>

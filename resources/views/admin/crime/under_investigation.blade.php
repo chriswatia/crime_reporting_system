@@ -25,6 +25,7 @@
                             <th>Device</th>
                             <th>Mac/Ip Address</th>
                             <th>Status</th>
+                            <th>Investigating Officer</th>
                             <th>Date Reported</th>
                             <th>Action</th>
                         </tr>
@@ -38,7 +39,13 @@
                                 <td>{{ $crime->crime_location }}</td>     
                                 <td>{{ Str::limit($crime->device_type,31) }}</td>  
                                 <td>{{ $crime->mac_address }}</td>         
-                                <td>{{ $crime->status }}</td>                          
+                                <td>{{ $crime->status }}</td>  
+                                @php
+                                    $officer = App\Models\Crime::leftJoin('crime_assignment as ca','crimes.id', 'ca.crime_id')
+                                    ->leftJoin('users as u', 'ca.officer_id', 'u.id')
+                                    ->where('crimes.id', $crime->id)->first();
+                                @endphp
+                                <th>{{ $officer->firstname.' '.$officer->lastname }}</th>                        
                                 <td>{{ $crime->created_at->toDateString() }}</td>
                                 <td>
                                     {{-- @if (!isset(App\Models\Crime::join('crime_assignment as ca', 'crimes.id', 'ca.crime_id')->where('crimes.id', $crime->id)->first()->id)) --}}

@@ -110,6 +110,33 @@ class DashboardController extends Controller
         $CrimeProgress->description = $request->description;
         $CrimeProgress->crime_id = $request->crime_id;
         $CrimeProgress->created_by = Auth::user()->id;
+        
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('uploads'), $filename);
+            $CrimeProgress->file = $filename;
+        }
+        $CrimeProgress->save();
+        return redirect('admin/crimes')->with('message', "Crime Progress added successfully");
+    }
+
+    public function crimeClose($id){
+        $crime = Crime::findOrFail($id);
+        return view('admin.crime.close', compact('crime'));
+    }
+
+    public function closeCrime(Request $request, $id)
+    {
+        $data = $request->all();
+        $crime = Crime::findOrFail($id);
+        $crime->status = "Completed";
+        $crime->save();
+
+        $CrimeProgress = new CrimeProgress;
+        $CrimeProgress->description = $request->description;
+        $CrimeProgress->crime_id = $request->crime_id;
+        $CrimeProgress->created_by = Auth::user()->id;
         $CrimeProgress->save();
         return redirect('admin/crimes')->with('message', "Crime Progress added successfully");
     }
