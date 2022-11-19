@@ -52,13 +52,18 @@
                     </div>
                     <div class="mb-3">
                         <label for="">Role</label>
+                        @if (Auth::user()->role_id == 1)
                         <select class="form-select form-select-sm" aria-label=".form-select-lg example" required="required" name="role_id">
                             <option selected></option>
                             @foreach ($roles as $role)
-                            <option {{ old('role_id', $user->role_id) ==  $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->name }}</option>
-                            @endforeach
                             
+                            <option {{ old('role_id', $user->role_id) ==  $role->id ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach                            
                         </select>
+                        @else
+                        <input type="text" name="" value="{{ App\Models\Role::where('id',$user->role_id)->first()->name  }}" id="" class="form-control" readonly>
+                        @endif
+                        
                     </div>
                     <div class="row">
                         <button type="submit" class="btn btn-primary">Update</button>

@@ -40,6 +40,8 @@
             <span>Crimes Under Investigation</span></a>
     </li>
     <!-- Divider -->
+    @if (Auth::user()->role_id == 1)   
+    
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
         Configurations
@@ -71,7 +73,18 @@
             <i class="fas fa-fw fa-list"></i>
             <span>Roles</span></a>
     </li>
-    
+    @endif
+    @if (Auth::user()->role_id == 3)   
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Account
+    </div>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/admin/edit-user/'.Auth::user()->id) }}">
+            <i class="fas fa-fw fa-list"></i>
+            <span>Profile</span></a>
+    </li>
+    @endif
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

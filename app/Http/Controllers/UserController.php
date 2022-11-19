@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -37,8 +38,13 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
         $user->update($data);
-
-        return redirect('admin/users')->with('message', "User updated successfully");
+        if(Auth::user()->role_id == 1){
+            return redirect('admin/users')->with('message', "User updated successfully");
+        }
+        else{
+            return redirect('/admin')->with('message', "User updated successfully");
+        }
+        
     }
 
     public function updateProfile(Request $request, $id)
