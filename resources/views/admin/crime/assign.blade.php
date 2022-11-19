@@ -1,15 +1,15 @@
 @extends('layouts.master')
 
-@section('title', 'Crime Status')
+@section('title', 'Crime Assigment')
 
 @section('content')
     <div class="container-fluid px-4">
         <div class="card mt-4">
             <div class="card-header">
-                <h4 class="">Crime Details</h4>
+                <h4 class="">Crime Assigment</h4>
             </div>
             <div class="card-body">
-                <form action="#" method="POST">
+                <form action="{{ url('/admin/crime-assigment/'.$crime->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -35,35 +35,22 @@
                     <div class="mb-3">
                         <label for="">Description</label>
                         <textarea name="description" readonly class="form-control">{{ $crime->description }}</textarea>
-                    </div>                    
+                    </div>   
+                    <input type="text" name="crime_id" value="{{ $crime->id }}" hidden> 
+
+                    <div class="mb-3">
+                        <label for="">Investigating Officer</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-lg example" required="required" name="officer_id">
+                            <option selected>Select Investigating Officer</option>
+                            @foreach (App\Models\InvestigatingOfficer::join('users as u','investigating_officers.user_id', 'u.id')->where('u.role_id', 3)->where('investigating_officers.status', 1)->get() as $InvestigatingOfficer)
+                            <option value="{{ $InvestigatingOfficer->id }}">{{ $InvestigatingOfficer->firstname.' '.$InvestigatingOfficer->lastname }}</option>
+                            @endforeach                            
+                        </select>
+                    </div>   
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary">Assign</button>
+                    </div>              
                 </form>
-                <div class="card-header">
-                    <h4 class="">Crime Progress
-                    </h4>
-                </div>
-                <div class="card-body">
-                    @if (session('message'))
-                        <div class="alert alert-success">{{ session('message') }}</div>
-                    @endif
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Update Status</th>
-                                <th>Last Updated</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (App\Models\CrimeProgress::where('crime_id', $crime->id)->get() as $crime_progress)
-                                <tr>
-                                    <td>{{ $crime_progress->id }}</td>
-                                    <td>{{ $crime_progress->description }}</td>                                
-                                    <td>{{ $crime_progress->updated_at->toDateString() }}</td>    
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>

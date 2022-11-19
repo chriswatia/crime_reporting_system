@@ -30,9 +30,14 @@
             <span>All Reported Crimes</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/admin/unassigned_crimes">
             <i class="fas fa-fw fa-list"></i>
             <span>Unassigned Crimes</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/crimes_under_investigation">
+            <i class="fas fa-fw fa-list"></i>
+            <span>Crimes Under Investigation</span></a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -45,7 +50,7 @@
             <span>Crime Categories</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/admin/investigating_officers">
             <i class="fas fa-fw fa-list"></i>
             <span>Investigation Officers</span></a>
     </li>

@@ -57,7 +57,23 @@ Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function(){
     Route::get('add-crime', [App\Http\Controllers\Admin\DashboardController::class, 'create']);
     Route::post('add-crime', [App\Http\Controllers\Admin\DashboardController::class, 'store']);
     Route::get('edit-crime/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'edit']);
+    Route::get('view-crime/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'viewCrime']);
     Route::put('edit-crime/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'update']);
     Route::get('delete-crime/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'destroy']);
     Route::get('crime_status/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'edit']);
+    Route::get('crime-assigment/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'crimeAssign']);
+    Route::put('crime-assigment/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'crimeAssigment']);
+    Route::get('unassigned_crimes', [App\Http\Controllers\Admin\DashboardController::class, 'unassigned_crimes']);
+    Route::get('crimes_under_investigation', [App\Http\Controllers\Admin\DashboardController::class, 'crimes_under_investigation']);
+    Route::get('add-evidence/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'crimeEvidence']);
+    Route::put('add-evidence/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'crimeAddEvidence']);
+    
+
+    //INVESTIGATING OFFICERS
+    Route::get('investigating_officers', [App\Http\Controllers\InvestigatingOfficerController::class, 'index']);
+    Route::get('add-investigating_officer', [App\Http\Controllers\InvestigatingOfficerController::class, 'create']);
+    Route::post('add-investigating_officer', [App\Http\Controllers\InvestigatingOfficerController::class, 'store']);
+    Route::get('edit-investigating_officer/{id}', [App\Http\Controllers\InvestigatingOfficerController::class, 'edit']);
+    Route::put('edit-investigating_officer/{id}', [App\Http\Controllers\InvestigatingOfficerController::class, 'update']);
+    Route::get('delete-investigating_officer/{id}', [App\Http\Controllers\InvestigatingOfficerController::class, 'destroy']);
 });

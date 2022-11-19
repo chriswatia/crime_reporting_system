@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
-@section('title', 'Reported Crimes')
+@section('title', 'Crimes Under Investigation')
 
 @section('content')
     <div class="container-fluid px-4">
         <div class="card mt-4">
             <div class="card-header">
-                <h4 class="">Reported Crimes
+                <h4 class="">Crimes Under Investigation
                     <a href="{{ url('/admin/add-crime') }}" class="btn btn-primary btn-sm float-end">Report Crime
                         </a>
                 </h4>
@@ -41,12 +41,12 @@
                                 <td>{{ $crime->status }}</td>                          
                                 <td>{{ $crime->created_at->toDateString() }}</td>
                                 <td>
-                                    @if (!isset(App\Models\Crime::join('crime_assignment as ca', 'crimes.id', 'ca.crime_id')->where('crimes.id', $crime->id)->first()->id))
-                                      <a class="btn btn-primary btn-sm" href="{{ url('admin/crime-assigment/' . $crime->id) }}">Assign</a>
-                                    @else
+                                    {{-- @if (!isset(App\Models\Crime::join('crime_assignment as ca', 'crimes.id', 'ca.crime_id')->where('crimes.id', $crime->id)->first()->id)) --}}
+                                      {{-- <a class="btn btn-primary btn-sm" href="{{ url('admin/crime-assigment/' . $crime->id) }}">Assign</a> --}}
+                                    {{-- @else --}}
                                         <a class="btn btn-success btn-sm" href="{{ url('admin/view-crime/' . $crime->id) }}">View Progress</a>
                                         <a class="btn btn-primary btn-sm" href="{{ url('admin/add-evidence/' . $crime->id) }}">Add Evidence</a>
-                                    @endif                          
+                                        {{-- @endif                           --}}
 
                                 </td>
 

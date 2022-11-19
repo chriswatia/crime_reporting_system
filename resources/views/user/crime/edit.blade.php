@@ -44,7 +44,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (App\Models\CrimeProgress::where('crime_is', $crime->id) as $crime_progress)
+                            @foreach (App\Models\CrimeProgress::where('crime_id', $crime->id)->get() as $crime_progress)
                                 <tr>
                                     <td>{{ $crime_progress->id }}</td>
                                     <td>{{ $crime_progress->description }}</td>                                
