@@ -27,6 +27,7 @@
                             <th>Status</th>
                             <th>Investigating Officer</th>
                             <th>Date Reported</th>
+                            <th>File</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -49,6 +50,11 @@
                                 @endphp
                                 <th>{{ $officer->firstname . ' ' . $officer->lastname }}</th>
                                 <td>{{ $crime->created_at->toDateString() }}</td>
+                                <td>
+                                    @if ($crime->file)
+                                    <a href="{{ asset('uploads/' . $crime->file) }}" target="_blank" rel="noopener noreferrer">View</a>
+                                    @endif
+                                </td> 
                                 <td>
                                     @if (!isset(App\Models\Crime::join('crime_assignment as ca', 'crimes.id', 'ca.crime_id')->where('crimes.id', $crime->id)->first()->id))
                                         <a class="btn btn-primary btn-sm"
