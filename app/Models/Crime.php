@@ -17,6 +17,7 @@ class Crime extends Model
         'device_type',
         'mac_address',
         'created_by',
-        'status'
+        'status',
+        'file'
     ];
 }

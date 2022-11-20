@@ -25,6 +25,7 @@
                             <th>Status</th>
                             <th>Investigating Officer</th>
                             <th>Date Reported</th>
+                            <th>File</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -43,6 +44,11 @@
                                 @endphp
                                 <th>{{ $officer->firstname.' '.$officer->lastname }}</th>                     
                                 <td>{{ $crime->created_at->toDateString() }}</td>
+                                <td>
+                                    @if ($crime->file)
+                                    <a href="{{ asset('uploads/' . $crime->file) }}" target="_blank" rel="noopener noreferrer">View</a>
+                                    @endif
+                                </td>  
                                 <td>
                                     <a class="btn btn-success btn-sm" href="{{ url('crime_status/' . $crime->id) }}">View Progress</a>
                                     {{-- <a class="btn btn-danger btn-sm" href="{{ url('admin/delete-crime_category/' . $crime->id) }}">Delete</a> --}}

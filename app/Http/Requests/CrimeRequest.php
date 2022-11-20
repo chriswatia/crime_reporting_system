@@ -29,7 +29,8 @@ class CrimeRequest extends FormRequest
             'crime_location' => 'required',
             'device_type' => 'nullable',
             'mac_address' => 'nullable',
-            'status' => 'nullable'
+            'status' => 'nullable',
+            'file' => 'nullable'
         ];
         return $rules;
     }

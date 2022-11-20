@@ -31,6 +31,13 @@ class CrimeController extends Controller
             $data['mac_address'] = \Request::ip();
         }
         $data['status'] = 'Submitted';
+        
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('uploads'), $filename);
+            $data['file'] = $filename;
+        }
         $crime->create($data);
 
         return redirect('/crimes')->with('message', "Crime reported successfully");
