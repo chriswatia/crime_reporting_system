@@ -140,5 +140,15 @@ class DashboardController extends Controller
         $CrimeProgress->save();
         return redirect('admin/crimes')->with('message', "Crime Progress added successfully");
     }
+
+    public function reported_cases(){
+        $crimes = Crime::all();        
+        return view('admin.crime.cases', compact('crimes'));
+    }
+
+    public function reporters(){
+        $crimes = Crime::join('users', 'crimes.created_by', 'users.id')->get();        
+        return view('admin.crime.reporters', compact('crimes'));
+    }
     
 }

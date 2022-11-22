@@ -40,6 +40,26 @@
             <span>Crimes Under Investigation</span></a>
     </li>
     <!-- Divider -->
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">
+        Reports
+    </div>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/reported_cases">
+            <i class="fas fa-fw fa-list"></i>
+            <span>Reported Cases</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/reporters">
+            <i class="fas fa-fw fa-list"></i>
+            <span>Reporters</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/officers">
+            <i class="fas fa-fw fa-list"></i>
+            <span>Police Officers</span></a>
+    </li>
+    <!-- Divider -->
     @if (Auth::user()->role_id == 1)   
     
     <hr class="sidebar-divider">

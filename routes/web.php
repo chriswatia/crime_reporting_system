@@ -77,4 +77,9 @@ Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function(){
     Route::get('edit-investigating_officer/{id}', [App\Http\Controllers\InvestigatingOfficerController::class, 'edit']);
     Route::put('edit-investigating_officer/{id}', [App\Http\Controllers\InvestigatingOfficerController::class, 'update']);
     Route::get('delete-investigating_officer/{id}', [App\Http\Controllers\InvestigatingOfficerController::class, 'destroy']);
+
+    //REPORTS
+    Route::get('reported_cases', [App\Http\Controllers\Admin\DashboardController::class, 'reported_cases']);
+    Route::get('reporters', [App\Http\Controllers\Admin\DashboardController::class, 'reporters']);
+    Route::get('officers', [App\Http\Controllers\Admin\DashboardController::class, 'officers']);
 });
