@@ -151,7 +151,7 @@ class DashboardController extends Controller
         $crimes = DB::table('crimes as c')->join('users as u', 'c.created_by', 'u.id')
         ->join('crime_categories as cc', 'c.category_id', 'cc.id')
         ->selectRaw('GROUP_CONCAT(cc.category_name) as crimes_reported,GROUP_CONCAT(c.description) as description, firstname, lastname')
-        ->groupBy('c.created_by')->get();        
+        ->groupBy('c.created_by','u.firstname','u.lastname')->get();        
         return view('admin.crime.reporters', compact('crimes'));
     }
 
