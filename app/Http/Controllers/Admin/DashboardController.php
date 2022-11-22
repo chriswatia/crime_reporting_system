@@ -6,6 +6,7 @@ use App\Models\Crime;
 use Illuminate\Http\Request;
 use App\Models\CrimeProgress;
 use App\Models\CrimeAssignment;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CrimeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -147,8 +148,20 @@ class DashboardController extends Controller
     }
 
     public function reporters(){
-        $crimes = Crime::join('users', 'crimes.created_by', 'users.id')->get();        
+        $crimes = DB::table('crimes as c')->join('users as u', 'c.created_by', 'u.id')
+        ->join('crime_categories as cc', 'c.category_id', 'cc.id')
+        ->selectRaw('GROUP_CONCAT(cc.category_name) as crimes_reported,GROUP_CONCAT(c.description) as description, firstname, lastname')
+        ->groupBy('c.created_by')->get();        
         return view('admin.crime.reporters', compact('crimes'));
+    }
+
+    public function officers(){
+        $investigating_officers = DB::table('users as u')->leftJoin('investigating_officers as invo', 'invo.user_id', 'u.id')
+        ->leftJoin('crime_categories as cc', 'invo.category_id', 'cc.id')
+        ->select('invo.id as invo_id', 'u.id as u_id', 'invo.*', 'u.*','cc.*')
+        ->where('u.role_id', 3)
+        ->get();
+        return view('admin.crime.investigating_officers', compact('investigating_officers'));
     }
     
 }

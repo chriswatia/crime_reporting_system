@@ -31,7 +31,6 @@ class CrimeController extends Controller
             $data['mac_address'] = \Request::ip();
         }
         $data['status'] = 'Submitted';
-        // dd($request->hasFile('file'));
         if($request->hasFile('file')){
             // dd("Here");
             $file = $request->file('file');
@@ -39,6 +38,7 @@ class CrimeController extends Controller
             $file-> move(public_path('uploads'), $filename);
             $data['file'] = $filename;
         }
+        // dd($data);
         $crime->create($data);
 
         return redirect('/crimes')->with('message', "Crime reported successfully");
