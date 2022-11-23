@@ -79,7 +79,7 @@ class DashboardController extends Controller
     {
         $data = $request->all();
         $crime = Crime::findOrFail($id);
-        $data['category_id'] = $request->crime_id;
+        $data['category_id'] = $crime->category_id;
         $data['status'] = "In Progress";
         $crime->update($data);
 

@@ -15,7 +15,7 @@
                     <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="">Crime</label>
-                        <input type="text" readonly name="category_id" value="{{ App\Models\CrimeCategory::where('id', $crime->category_id)->first()->category_name}}" id="" class="form-control" required>
+                        <input type="text" readonly name="category_name" value="{{ App\Models\CrimeCategory::where('id', $crime->category_id)->first()->category_name}}" id="" class="form-control" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Location</label>
@@ -37,7 +37,7 @@
                         <textarea name="description" readonly class="form-control">{{ $crime->description }}</textarea>
                     </div>   
                     <input type="text" name="crime_id" value="{{ $crime->id }}" hidden> 
-
+                    <input type="text" name="category_id" value="{{ $crime->category_id }}" hidden> 
                     <div class="mb-3">
                         <label for="">Investigating Officer</label>
                         <select class="form-select form-select-sm" aria-label=".form-select-lg example" required="required" name="officer_id">
