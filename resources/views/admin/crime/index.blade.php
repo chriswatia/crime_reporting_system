@@ -49,7 +49,7 @@
                                         ->first();
                                 @endphp
                                 <th>{{ $officer->firstname . ' ' . $officer->lastname }}</th>
-                                <td>{{ $crime->created_at->toDateString() }}</td>
+                                <td>{{ $crime->created_at }}</td>
                                 <td>
                                     @if ($crime->file)
                                     <a href="{{ asset('uploads/' . $crime->file) }}" target="_blank" rel="noopener noreferrer">View</a>
