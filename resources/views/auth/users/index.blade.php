@@ -35,7 +35,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->firstname.' '.$user->lastname }}</td>
                                 <td>{{ $user->email }}</td> 
-                                <td>{{ $user->phone }}</td>
+                                <td>{{ $user->country_code.''.$user->phone }}</td>
                                 <td>{{ $user->gender }}</td>
                                 <td>{{ $user->address }}</td>
                                 @php

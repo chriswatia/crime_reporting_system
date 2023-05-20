@@ -36,8 +36,16 @@
                     </div>
                     <div class="mb-3">
                         <label for="">Phone</label>
-                        <input type="number" name="phone" value="{{ $user->phone }}" id="" class="form-control" required>
-                    </div>
+                        <div class="form-inline">
+                            <select name="country_code" class="form-control selectpicker col-3" data-live-search="true" required="required">
+                                <option value="">Select Country</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->country_code }}">{{ '('.$country->country_code.')'.' '. $country->country_name .' - '.$country->iso_code }}</option>
+                                @endforeach
+                            </select>
+
+                            <input type="tel" name="phone" value="{{ $user->phone }}" id="" class="form-control col-9" required placeholder="700112233">
+                        </div>                    </div>
                     <div class="mb-3">
                         <label for="">Gender</label>
                         <select class="form-select form-select-sm" aria-label=".form-select-lg example" required="required" name="gender">                                    

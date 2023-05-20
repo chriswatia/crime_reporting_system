@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Crime;
+use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use App\Models\CrimeProgress;
 use App\Models\CrimeAssignment;
@@ -88,6 +90,34 @@ class DashboardController extends Controller
         $CrimeAssignment->crime_id = $request->crime_id;
         $CrimeAssignment->created_by = Auth::user()->id;
         $CrimeAssignment->save();
+
+        $crime = Crime::find($request->crime_id);
+
+        $user = User::find($crime->created_by);
+
+        $officer = User::find($request->officer_id);
+
+        //Send SMS
+        $sid = app('config')->get('services.twilio.sid');
+        $token = app('config')->get('services.twilio.token');
+        $phone = app('config')->get('services.twilio.phone');
+
+        $phone_number = $user->country_code.''.$user->phone;
+        $name = $user->firstname;
+        $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." has been assigned an investigating officer : " .$officer->firstname." " .$officer->lastname;
+
+        
+        $client = new Client($sid, $token);
+
+        // Send the SMS
+        $client->messages
+                  ->create($phone_number, // to
+                    [
+                        "body" => $message,
+                        "from" => $phone
+                    ]
+                  );
+
         return redirect('admin/crimes')->with('message', "Crime assigned to investigating officer successfully");
     }
 
@@ -119,6 +149,32 @@ class DashboardController extends Controller
             $CrimeProgress->file = $filename;
         }
         $CrimeProgress->save();
+
+        $crime = Crime::find($request->crime_id);
+
+        $user = User::find($crime->created_by);
+
+        //Send SMS
+        $sid = app('config')->get('services.twilio.sid');
+        $token = app('config')->get('services.twilio.token');
+        $phone = app('config')->get('services.twilio.phone');
+
+        $phone_number = $user->country_code.''.$user->phone;
+        $name = $user->firstname;
+        $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." has new evidence : " .$request->description;
+
+        
+        $client = new Client($sid, $token);
+
+        // Send the SMS
+        $client->messages
+                  ->create($phone_number, // to
+                    [
+                        "body" => $message,
+                        "from" => $phone
+                    ]
+                  );
+                  
         return redirect('admin/crimes')->with('message', "Crime Progress added successfully");
     }
 
@@ -139,6 +195,32 @@ class DashboardController extends Controller
         $CrimeProgress->crime_id = $request->crime_id;
         $CrimeProgress->created_by = Auth::user()->id;
         $CrimeProgress->save();
+
+        $crime = Crime::find($request->crime_id);
+
+        $user = User::find($crime->created_by);
+
+        //Send SMS
+        $sid = app('config')->get('services.twilio.sid');
+        $token = app('config')->get('services.twilio.token');
+        $phone = app('config')->get('services.twilio.phone');
+
+        $phone_number = $user->country_code.''.$user->phone;
+        $name = $user->firstname;
+        $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." was closed due to : ".$request->description;
+
+        
+        $client = new Client($sid, $token);
+
+        // Send the SMS
+        $client->messages
+                  ->create($phone_number, // to
+                    [
+                        "body" => $message,
+                        "from" => $phone
+                    ]
+                  );
+
         return redirect('admin/crimes')->with('message', "Crime Progress added successfully");
     }
 

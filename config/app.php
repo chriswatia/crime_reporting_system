@@ -229,4 +229,6 @@ return [
 
     ],
 
+    'sid' => env('TWILIO_ACCOUNT_SID'),
+
 ];

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Crime Reporting System')
+@section('title', 'Scorpion Crime Tracker')
 
 @section('content')
 <div class="container-fluid">

@@ -21,7 +21,7 @@
                     <div class="mb-3">
                         <label for="">Crime</label>
                         <select class="form-select form-select-sm" aria-label=".form-select-lg example" required="required" name="category_id">
-                            <option selected>Select crime</option>
+                            <option selected>Select Crime Category</option>
                             @foreach (App\Models\CrimeCategory::all() as $crime_category)
                             <option value="{{ $crime_category->id }}">{{ $crime_category->category_name }}</option>
                             @endforeach                            

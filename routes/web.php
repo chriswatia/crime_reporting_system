@@ -30,6 +30,9 @@ Route::middleware(['auth'])->group(function (){
     Route::put('edit-crime/{id}', [App\Http\Controllers\CrimeController::class, 'update']);
     Route::get('delete-crime/{id}', [App\Http\Controllers\CrimeController::class, 'destroy']);
     Route::get('crime_status/{id}', [App\Http\Controllers\CrimeController::class, 'edit']);
+
+    Route::post('/sms', [App\Http\Controllers\SendSmsController::class, 'send']);
+
 });
 
 Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function(){
