@@ -24,7 +24,7 @@ class AdminMiddleware
                 return redirect('/home')->with('status', 'Access Denied! You are not Admin');
             }
         }else{
-            return redirect('/login')->with('status', 'Please Login First');
+            return redirect('/home')->with('status', 'Please Login First');
         }
     }
 }

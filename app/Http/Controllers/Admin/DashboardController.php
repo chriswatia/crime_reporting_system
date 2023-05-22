@@ -7,11 +7,13 @@ use App\Models\Crime;
 use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use App\Models\CrimeProgress;
+use App\Exports\AllCrimeExport;
 use App\Models\CrimeAssignment;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CrimeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -244,6 +246,10 @@ class DashboardController extends Controller
         ->where('u.role_id', 3)
         ->get();
         return view('admin.crime.investigating_officers', compact('investigating_officers'));
+    }
+
+    public function exportCrimes(){
+        return Excel::download(new AllCrimeExport, 'allcrimes.xlsx');
     }
     
 }

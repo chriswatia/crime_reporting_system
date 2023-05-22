@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function (){
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
     Route::get('/', [App\Http\Controllers\UserDashboardController::class, 'index']);
 
     //Update profile
@@ -56,6 +57,7 @@ Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function(){
     Route::get('delete-crime_category/{id}', [App\Http\Controllers\CrimeCategoryController::class, 'destroy']);
 
     //REPORT CRIME ROUTES
+    Route::get('crimes-export', [App\Http\Controllers\Admin\DashboardController::class, 'exportCrimes']);
     Route::get('crimes', [App\Http\Controllers\Admin\DashboardController::class, 'reportedCrimes']);
     Route::get('add-crime', [App\Http\Controllers\Admin\DashboardController::class, 'create']);
     Route::post('add-crime', [App\Http\Controllers\Admin\DashboardController::class, 'store']);
