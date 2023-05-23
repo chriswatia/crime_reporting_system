@@ -8,9 +8,16 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class AllCrimeExport implements FromQuery,ShouldAutoSize
+class AllCrimeExport implements FromQuery,ShouldAutoSize,WithHeadings
 {
     use Exportable;
+
+    public function headings(): array
+    {
+        return [
+           ['ID', 'Crime Number', 'Category', 'Description', 'Location', 'Device', 'Ip Address', 'Status'],
+        ];
+    }
 
     public function query()
     {
