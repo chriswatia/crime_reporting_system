@@ -14,6 +14,8 @@ use App\Http\Requests\CrimeRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UnassignedCrimeExport;
+use App\Exports\CrimeUnderInvestigationExport;
 
 class DashboardController extends Controller
 {
@@ -250,6 +252,14 @@ class DashboardController extends Controller
 
     public function exportCrimes(){
         return Excel::download(new AllCrimeExport, 'allcrimes.xlsx');
+    }
+
+    public function exportUnassignedCrimes(){
+        return Excel::download(new UnassignedCrimeExport, 'unassigned_crimes.xlsx');
+    }
+
+    public function exportcrimes_under_investigation(){
+        return Excel::download(new CrimeUnderInvestigationExport, 'crimes_under_investigation.xlsx');
     }
     
 }

@@ -6,10 +6,10 @@
     <div class="container-fluid px-4">
         <div class="card mt-4">
             <div class="card-header">
-                <h4 class="">Crimes Under Investigation
-                    <a href="{{ url('/admin/add-crime') }}" class="btn btn-primary btn-sm float-end">Report Crime
-                        </a>
-                </h4>
+            <h4 class="float-left">Unassigned Crimes</h4>
+            <div class="d-flex float-right justify-content-end">
+            <a href="{{ url('/admin/add-crime') }}" class="btn btn-primary btn-sm mr-2">Report Crime</a>
+            <a href="{{ url('/admin/crimes_under_investigation-export') }}" class="btn btn-warning btn-sm">Export</a>
             </div>
             <div class="card-body">
                 @if (session('message'))

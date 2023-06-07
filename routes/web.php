@@ -58,6 +58,8 @@ Route::prefix('admin')->middleware(['auth', 'IsAdmin'])->group(function(){
 
     //REPORT CRIME ROUTES
     Route::get('crimes-export', [App\Http\Controllers\Admin\DashboardController::class, 'exportCrimes']);
+    Route::get('unassigned_crimes-export', [App\Http\Controllers\Admin\DashboardController::class, 'exportUnassignedCrimes']);
+    Route::get('crimes_under_investigation-export', [App\Http\Controllers\Admin\DashboardController::class, 'exportcrimes_under_investigation']);
     Route::get('crimes', [App\Http\Controllers\Admin\DashboardController::class, 'reportedCrimes']);
     Route::get('add-crime', [App\Http\Controllers\Admin\DashboardController::class, 'create']);
     Route::post('add-crime', [App\Http\Controllers\Admin\DashboardController::class, 'store']);
