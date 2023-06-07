@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/contact-us', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
+Route::get('/about-us', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
+Route::get('/services', [App\Http\Controllers\HomeController::class, 'services'])->name('services');
 Route::middleware(['auth'])->group(function (){
     
     Route::get('/', [App\Http\Controllers\UserDashboardController::class, 'index']);

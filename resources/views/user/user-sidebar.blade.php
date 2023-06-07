@@ -8,6 +8,11 @@
         </div>
         <div class="sidebar-brand-text">{{ config('app.name', 'Laravel') }}</div>
     </a>
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ url('/home') }}">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Home</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
