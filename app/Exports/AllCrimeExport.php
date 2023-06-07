@@ -12,7 +12,7 @@ class AllCrimeExport implements FromQuery,ShouldAutoSize,WithHeadings
 {
     use Exportable;
 
-    public function headings(): array
+    public function headings()
     {
         return [
            ['ID', 'Crime Number', 'Category', 'Description', 'Location', 'Device', 'Ip Address', 'Status'],
