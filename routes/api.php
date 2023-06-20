@@ -21,3 +21,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/sms', [SendSmsController::class, 'send']);
 Route::post('/saveCountry', [SendSmsController::class, 'saveCountry']);
+
+Route::get('/sendmail', function (Request $request) {
+    $ip = $request->ip();
+    Mail::raw('Hi user, a new login into your account from the IP Address: ', function ($message) {
+        $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+        $message->to('chriswatia@gmail.com', 'chriswatia1@gmail.com');
+    });
+});

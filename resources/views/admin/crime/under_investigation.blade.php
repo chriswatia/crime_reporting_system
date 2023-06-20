@@ -23,7 +23,7 @@
                             <th>Description</th>
                             <th>Location</th>
                             <th>Device</th>
-                            <th>Mac/Ip Address</th>
+                            <th>Ip Address</th>
                             <th>Status</th>
                             <th>Investigating Officer</th>
                             <th>Date Reported</th>
