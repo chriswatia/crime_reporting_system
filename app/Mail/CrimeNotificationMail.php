@@ -10,15 +10,17 @@ use Illuminate\Queue\SerializesModels;
 class CrimeNotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $name;
+    public $body;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($name, $body)
     {
-        //
+        $this->name = $name;
+        $this->body = $body;
     }
 
     /**

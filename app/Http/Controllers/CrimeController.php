@@ -6,6 +6,7 @@ use App\Models\Crime;
 use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use App\Http\Requests\CrimeRequest;
+use App\Mail\CrimeNotificationMail;
 use Illuminate\Support\Facades\Auth;
 
 class CrimeController extends Controller
@@ -56,11 +57,14 @@ class CrimeController extends Controller
         $name = $user->firstname;
         $message = "Hello ".$name.", crime Ref - ".$crime_no." was reported successfully!";
 
+        $body = "Your crime Ref - ".$crime_no." was reported successfully!";
+        //Send Mail
+        \Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
         
-        $client = new Client($sid, $token);
+        $client = new Client($sid, $token);      
 
         // Send the SMS
-        $client->messages
+        $res = $client->messages
                   ->create($phone_number, // to
                     [
                         "body" => $message,

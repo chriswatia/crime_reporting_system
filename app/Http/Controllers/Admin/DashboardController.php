@@ -11,6 +11,7 @@ use App\Exports\AllCrimeExport;
 use App\Models\CrimeAssignment;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CrimeRequest;
+use App\Mail\CrimeNotificationMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -109,12 +110,16 @@ class DashboardController extends Controller
         $phone_number = $user->country_code.''.$user->phone;
         $name = $user->firstname;
         $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." has been assigned an investigating officer : " .$officer->firstname." " .$officer->lastname;
+        
+        $body = "Your crime Ref - ".$crime->crime_no." has been assigned an investigating officer : " .$officer->firstname." " .$officer->lastname;
 
+        //Send Mail
+        \Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
         
         $client = new Client($sid, $token);
 
         // Send the SMS
-        $client->messages
+        $res = $client->messages
                   ->create($phone_number, // to
                     [
                         "body" => $message,
@@ -122,6 +127,7 @@ class DashboardController extends Controller
                     ]
                   );
 
+        
         return redirect('admin/crimes')->with('message', "Crime assigned to investigating officer successfully");
     }
 
@@ -167,7 +173,9 @@ class DashboardController extends Controller
         $name = $user->firstname;
         $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." has new evidence : " .$request->description;
 
-        
+        $body = "Your crime Ref - ".$crime_no." has new evidence : " .$request->description;
+        //Send Mail
+        \Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
         $client = new Client($sid, $token);
 
         // Send the SMS
@@ -213,7 +221,10 @@ class DashboardController extends Controller
         $name = $user->firstname;
         $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." was closed due to : ".$request->description;
 
-        
+        $body = "Your crime Ref - ".$crime_no." was closed due to : ".$request->description;
+
+        //Send Mail
+        \Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
         $client = new Client($sid, $token);
 
         // Send the SMS
