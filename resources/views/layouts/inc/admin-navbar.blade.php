@@ -43,7 +43,7 @@
                 </form>
             </div>
         </li>
-
+        @if (session('status'))
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
@@ -82,7 +82,7 @@
                 </a>
             </div>
         </li>
-
+        @endif
     </ul>
 
 </nav>

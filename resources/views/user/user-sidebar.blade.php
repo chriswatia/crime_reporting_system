@@ -48,6 +48,8 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    
+    @if (session('status'))
     <!-- Heading -->
     <div class="sidebar-heading">
         Account
@@ -57,6 +59,7 @@
             <i class="fas fa-fw fa-list"></i>
             <span>Profile</span></a>
     </li>
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CrimeRequest;
 use App\Mail\CrimeNotificationMail;
 use Illuminate\Support\Facades\Auth;
+use Stevebauman\Location\Facades\Location;
 
 class CrimeController extends Controller
 {
@@ -18,7 +19,45 @@ class CrimeController extends Controller
 
 
     public function create(){
-        return view('user.crime.create');
+        $ip = $this->getPublicIp();
+        $currentUserInfo = Location::get($ip);
+        $location = $currentUserInfo->regionName;
+        return view('user.crime.create', compact('location'));
+    }
+
+    public function reportCrime(){
+        $ip = $this->getPublicIp();
+        $currentUserInfo = Location::get($ip);
+        $location = $currentUserInfo->regionName;
+        return view('user.crime.report-crime', compact('location'));
+    }
+
+    public function saveCrime(CrimeRequest $request)
+    {
+        $data = $request->validated();
+
+        $crime = new Crime;
+        $data['created_by'] = 1;
+        $data['device_type'] = $request->header('User-Agent');
+        $data['mac_address'] = exec('getmac');
+        if(!isset($data->mac_address)){
+            $data['mac_address'] = \Request::ip();
+        }
+        $data['status'] = 'Submitted';
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('uploads'), $filename);
+            $data['file'] = $filename;
+        }
+
+        $crimes_index = Crime::max('id') + 1;
+        $crime_no = "CRM-".$crimes_index;
+        $data['crime_no'] = $crime_no;
+        
+        $crime->create($data);
+
+        return redirect('/home')->with('message', "Crime reported successfully");
     }
 
     public function store(CrimeRequest $request)
@@ -96,5 +135,21 @@ class CrimeController extends Controller
         $crime->delete();
 
         return redirect('/crimes')->with('message', "Crime deleted successfully");
+    }
+
+    
+
+    public function getPublicIp()
+    {
+        $client = new \GuzzleHttp\Client;
+        try {
+            $response = $client->get('https://api.ipify.org');
+
+            $publicIp = $response->getBody()->getContents();
+
+            return $publicIp;
+        } catch (\Exception $e) {
+            // Handle the exception
+        }
     }
 }

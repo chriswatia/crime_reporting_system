@@ -34,7 +34,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="">Location</label>
-                        <input type="text" name="crime_location" id="" class="form-control" required>
+                        <input type="text" value="{{ $location }}" name="crime_location" id="" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="">File</label>

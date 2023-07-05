@@ -43,6 +43,10 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
 });
 
+//Anonymous crime reporting
+Route::get('report-crime', [App\Http\Controllers\CrimeController::class, 'reportCrime']);
+Route::post('report-crime', [App\Http\Controllers\CrimeController::class, 'saveCrime']);
+
 Route::prefix('admin')->middleware(['auth', 'IsAdmin', 'verified'])->group(function(){
     Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
 
