@@ -8,13 +8,16 @@
                 <div class="card-header">{{ __('Home') }}</div>
 
                 <div class="card-body">
+                    @if (session('message'))
+                        <div class="alert alert-success">{{ session('message') }}</div>
+                    @endif
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                    
+                    <!-- {{ __('You are logged in!') }} -->
                 </div>
             </div>
         </div>

@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UnassignedCrimeExport;
+use Stevebauman\Location\Facades\Location;
 use App\Exports\CrimeUnderInvestigationExport;
 
 class DashboardController extends Controller
@@ -30,7 +31,10 @@ class DashboardController extends Controller
     }
 
     public function create(){
-        return view('admin.crime.create');
+        $ip = $this->getPublicIp();
+        $currentUserInfo = Location::get($ip);
+        $location = $currentUserInfo->regionName;
+        return view('admin.crime.create', compact('location'));
     }
 
     public function store(CrimeRequest $request)
@@ -273,4 +277,17 @@ class DashboardController extends Controller
         return Excel::download(new CrimeUnderInvestigationExport, 'crimes_under_investigation.xlsx');
     }
     
+    public function getPublicIp()
+    {
+        $client = new \GuzzleHttp\Client;
+        try {
+            $response = $client->get('https://api.ipify.org');
+
+            $publicIp = $response->getBody()->getContents();
+
+            return $publicIp;
+        } catch (\Exception $e) {
+            // Handle the exception
+        }
+    }
 }
