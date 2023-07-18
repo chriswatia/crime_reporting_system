@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Crime;
 use Twilio\Rest\Client;
-use Illuminate\Http\Request;
 use App\Models\CrimeProgress;
 use App\Exports\AllCrimeExport;
 use App\Models\CrimeAssignment;
@@ -14,19 +14,67 @@ use App\Http\Requests\CrimeRequest;
 use App\Mail\CrimeNotificationMail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UnassignedCrimeExport;
+use Illuminate\Support\Facades\Request;
 use Stevebauman\Location\Facades\Location;
 use App\Exports\CrimeUnderInvestigationExport;
 
 class DashboardController extends Controller
 {
     public function index(){
-        return view('admin.dashboard');
+        // Get the start and end dates of the current year
+        $yearStart = Carbon::now()->startOfYear();
+        $yearEnd = Carbon::now()->endOfYear();
+        $monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        $crimes = Crime::selectRaw('COUNT(*) as total_crimes, MONTH(created_at) as crime_month')
+            ->whereBetween('created_at', [$yearStart, $yearEnd])
+            ->groupBy('crime_month')
+            ->get()
+            ->mapWithKeys(function ($item) use ($monthNames) {
+                $monthIndex = $item->crime_month - 1;
+                $monthName = $monthNames[$monthIndex];
+                return [$monthName => $item->total_crimes];
+            });
+
+        // Fill in missing months with zero counts
+        foreach ($monthNames as $monthName) {
+            if (!isset($crimes[$monthName])) {
+                $crimes[$monthName] = 0;
+            }
+        }
+
+        // Sort the months in chronological order
+        $crimes = $crimes->sortKeys()->toArray();
+        uksort($crimes, function ($a, $b) use ($monthNames) {
+            return array_search($a, $monthNames) <=> array_search($b, $monthNames);
+        });
+
+
+        $crimes = implode(', ', $crimes);
+
+        $crimes_per_location = Crime::selectRaw('COUNT(*) as total_crimes, crime_location')->groupBy('crime_location')->get();
+        foreach ($crimes_per_location as $crime) {
+            $totalCrimes = $crime->total_crimes;
+            $location = $crime->crime_location;
+
+            // Create an array entry for each location with the total crimes
+            $crimeData[] = [
+                'location' => $location,
+                'total_crimes' => $totalCrimes,
+            ];
+        }
+
+        return view('admin.dashboard', compact('crimes', 'crimes_per_location'));
     }
 
     public function reportedCrimes(){
-        $crimes = Crime::all();        
+        $crimes = Crime::all();
         return view('admin.crime.index', compact('crimes'));
     }
 
@@ -45,8 +93,8 @@ class DashboardController extends Controller
         $data['created_by'] = Auth::user()->id;
         $data['device_type'] = $request->header('User-Agent');
         $data['mac_address'] = exec('getmac');
-        if(!isset($data->mac_address)){
-            $data['mac_address'] = \Request::ip();
+        if(!isset($data['mac_address'])){
+            $data['mac_address'] = Request::ip();
         }
         $data['status'] = 'Submitted';
         $crime->create($data);
@@ -114,12 +162,12 @@ class DashboardController extends Controller
         $phone_number = $user->country_code.''.$user->phone;
         $name = $user->firstname;
         $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." has been assigned an investigating officer : " .$officer->firstname." " .$officer->lastname;
-        
+
         $body = "Your crime Ref - ".$crime->crime_no." has been assigned an investigating officer : " .$officer->firstname." " .$officer->lastname;
 
         //Send Mail
-        \Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
-        
+        Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
+
         $client = new Client($sid, $token);
 
         // Send the SMS
@@ -131,16 +179,16 @@ class DashboardController extends Controller
                     ]
                   );
 
-        
+
         return redirect('admin/crimes')->with('message', "Crime assigned to investigating officer successfully");
     }
 
     public function unassigned_crimes(){
-        $crimes = Crime::where('status', 'Submitted')->get();        
+        $crimes = Crime::where('status', 'Submitted')->get();
         return view('admin.crime.unassigned_crimes', compact('crimes'));
     }
     public function crimes_under_investigation(){
-        $crimes = Crime::where('status', 'In Progress')->get();        
+        $crimes = Crime::where('status', 'In Progress')->get();
         return view('admin.crime.under_investigation', compact('crimes'));
     }
 
@@ -155,7 +203,7 @@ class DashboardController extends Controller
         $CrimeProgress->description = $request->description;
         $CrimeProgress->crime_id = $request->crime_id;
         $CrimeProgress->created_by = Auth::user()->id;
-        
+
         if($request->hasFile('file')){
             $file = $request->file('file');
             $filename= date('YmdHi').$file->getClientOriginalName();
@@ -179,7 +227,7 @@ class DashboardController extends Controller
 
         $body = "Your crime Ref - ".$crime_no." has new evidence : " .$request->description;
         //Send Mail
-        \Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
+        Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
         $client = new Client($sid, $token);
 
         // Send the SMS
@@ -190,7 +238,7 @@ class DashboardController extends Controller
                         "from" => $phone
                     ]
                   );
-                  
+
         return redirect('admin/crimes')->with('message', "Crime Progress added successfully");
     }
 
@@ -225,10 +273,10 @@ class DashboardController extends Controller
         $name = $user->firstname;
         $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." was closed due to : ".$request->description;
 
-        $body = "Your crime Ref - ".$crime_no." was closed due to : ".$request->description;
+        $body = "Your crime Ref - ".$crime->crime_no." was closed due to : ".$request->description;
 
         //Send Mail
-        \Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
+        Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
         $client = new Client($sid, $token);
 
         // Send the SMS
@@ -244,7 +292,7 @@ class DashboardController extends Controller
     }
 
     public function reported_cases(){
-        $crimes = Crime::all();        
+        $crimes = Crime::all();
         return view('admin.crime.cases', compact('crimes'));
     }
 
@@ -252,7 +300,7 @@ class DashboardController extends Controller
         $crimes = DB::table('crimes as c')->join('users as u', 'c.created_by', 'u.id')
         ->join('crime_categories as cc', 'c.category_id', 'cc.id')
         ->selectRaw('GROUP_CONCAT(cc.category_name) as crimes_reported,GROUP_CONCAT(c.description) as description, firstname, lastname')
-        ->groupBy('c.created_by','u.firstname','u.lastname')->get();        
+        ->groupBy('c.created_by','u.firstname','u.lastname')->get();
         return view('admin.crime.reporters', compact('crimes'));
     }
 
@@ -276,7 +324,7 @@ class DashboardController extends Controller
     public function exportcrimes_under_investigation(){
         return Excel::download(new CrimeUnderInvestigationExport, 'crimes_under_investigation.xlsx');
     }
-    
+
     public function getPublicIp()
     {
         $client = new \GuzzleHttp\Client;

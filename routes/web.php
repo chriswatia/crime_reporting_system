@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 
 /*
@@ -23,7 +24,7 @@ Route::get('/contact-us', [App\Http\Controllers\HomeController::class, 'contact'
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->withoutMiddleware(['auth']);
 Route::get('/about-us', [App\Http\Controllers\HomeController::class, 'about'])->name('about')->withoutMiddleware(['auth']);
 Route::get('/services', [App\Http\Controllers\HomeController::class, 'services'])->name('services')->withoutMiddleware(['auth']);
-Route::middleware(['auth', 'verified'])->group(function (){    
+Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/', [App\Http\Controllers\UserDashboardController::class, 'index']);
 
     //Update profile
@@ -55,7 +56,7 @@ Route::prefix('admin')->middleware(['auth', 'IsAdmin', 'verified'])->group(funct
     Route::get('edit-user/{id}', [App\Http\Controllers\UserController::class, 'edit']);
     Route::put('edit-user/{id}', [App\Http\Controllers\UserController::class, 'update']);
     Route::get('delete-user/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
-    
+
     //ROLES
     Route::get('roles', [App\Http\Controllers\RoleController::class, 'index']);
 
