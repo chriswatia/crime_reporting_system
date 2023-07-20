@@ -70,7 +70,20 @@ class DashboardController extends Controller
             ];
         }
 
-        return view('admin.dashboard', compact('crimes', 'crimes_per_location'));
+        $crimes_per_category = Crime::selectRaw('COUNT(*) as total_crimes, category_name')
+            ->join('crime_categories as crc', 'crimes.category_id', 'crc.id')->groupBy('category_id')->get();
+        foreach ($crimes_per_category as $crime) {
+            $totalCrimes = $crime->total_crimes;
+            $category_name = $crime->category_name;
+
+            // Create an array entry for each location with the total crimes
+            $crimeData[] = [
+                'category' => $category_name,
+                'total_crimes' => $totalCrimes,
+            ];
+        }
+
+        return view('admin.dashboard', compact('crimes', 'crimes_per_location', 'crimes_per_category'));
     }
 
     public function reportedCrimes(){

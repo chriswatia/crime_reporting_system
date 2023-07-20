@@ -159,11 +159,11 @@
         <div class="col-xl-12 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Total Crimes Per Location</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Total Crimes Per Category</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-bar">
-                        <input type="hidden" id="total_crimes" value="{{ $crimes_per_location }}">
+                        <input type="hidden" id="crimes_per_category" value="{{ $crimes_per_category }}">
                         <canvas id="myBarChart"></canvas>
                     </div>
                 </div>
