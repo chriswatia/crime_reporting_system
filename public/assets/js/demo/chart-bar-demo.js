@@ -1,13 +1,14 @@
 // Bar Chart Example
 var ctx = document.getElementById("myBarChart");
 
-var total_crimes = JSON.parse(document.getElementById("total_crimes").value);
-var total_crimes_array = total_crimes.map(function(crime) {
+var crimes_per_category = JSON.parse(document.getElementById("crimes_per_category").value);
+console.log(crimes_per_category);
+var total_crimes_array = crimes_per_category.map(function(crime) {
     return crime.total_crimes;
 });
 
-var crime_locations_array = total_crimes.map(function(crime) {
-    return crime.crime_location;
+var crime_locations_array = crimes_per_category.map(function(crime) {
+    return crime.category_name;
 });
 
 var dataArray = total_crimes_array.join(", ");
@@ -47,12 +48,12 @@ var myBarChart = new Chart(ctx, {
             ticks: {
             //   maxTicksLimit: 6
             },
-            maxBarThickness: 25,
+            // maxBarThickness: 25,
           }],
           yAxes: [{
             ticks: {
               min: 0,
-              maxTicksLimit: 5,
+            //   maxTicksLimit: 5,
               padding: 10,
               // Include a dollar sign in the ticks
               callback: function(value, index, values) {
