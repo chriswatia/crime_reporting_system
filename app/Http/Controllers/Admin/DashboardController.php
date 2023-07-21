@@ -71,7 +71,7 @@ class DashboardController extends Controller
         }
 
         $crimes_per_category = Crime::selectRaw('COUNT(*) as total_crimes, category_name')
-            ->join('crime_categories as crc', 'crimes.category_id', 'crc.id')->groupBy('category_id')->get();
+            ->join('crime_categories as crc', 'crimes.category_id', 'crc.id')->groupBy('category_name')->get();
         foreach ($crimes_per_category as $crime) {
             $totalCrimes = $crime->total_crimes;
             $category_name = $crime->category_name;
