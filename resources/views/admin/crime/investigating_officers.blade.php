@@ -19,7 +19,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Specializtion</th>
+                            <th>Specialization</th>
                             <th>Status</th>
                         </tr>
                     </thead>
