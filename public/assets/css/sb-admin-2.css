@@ -4143,6 +4143,7 @@ input[type="button"].btn-block {
 .navbar-nav .nav-link {
   padding-right: 0;
   padding-left: 0;
+  
 }
 
 .navbar-nav .dropdown-menu {
@@ -4160,6 +4161,9 @@ input[type="button"].btn-block {
   flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
+  
+  
+  
 }
 
 .navbar-toggler {
@@ -9746,6 +9750,7 @@ a.text-dark:hover, a.text-dark:focus {
   }
   .container {
     min-width: 992px !important;
+    
   }
   .navbar {
     display: none;

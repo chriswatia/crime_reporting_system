@@ -22,6 +22,8 @@
         font-style: oblique;
         text-transform: uppercase;
         text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+        font-family: 'Alkatra', cursive;
+    font-family: 'Rubik', sans-serif;
 
     }
 </style>

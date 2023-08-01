@@ -1,28 +1,121 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('About Us') }}</div>
+<style>
+    .section-sub-banner{
+    padding-top:80px;
+    background: linear-gradient(to bottom,#363bc8,rgb(95, 84, 255),#000000);
+      
+}
+.sub-banner{
+    position:relative;
+}
+.sub-banner .text{
+    padding-bottom:50px;
+}
+.sub-banner .text h2{
+    margin-top:70px;
+    margin-bottom:0;
+    color:#ffffff;
+    font-size:68px;
+    font-family: 'Alkatra', cursive;
+    font-family: 'Rubik', sans-serif; 
+    font-weight: bolder;
+    text-transform:uppercase;
+    animation: move-color 10s ease-in-out infinite;
+    text-shadow: #000000;
+}
 
-                <div class="card-body">
-                    <h2>Welcome to Scorpion Crime Tracker</h2>
-                    <p>Scorpion Crime Tracker is a revolutionary web application that aims to empower communities in the fight against crime. Our mission is to create a safer environment by providing a comprehensive platform for reporting and tracking criminal activities.</p>
+.sub-banner .text p{
+    margin-bottom:0;
+    color:#ffffff;
+    font-size:30px;
+    font-weight: bold;
+}
+.about_us {
+    background: linear-gradient(to bottom,#000000, rgb(55, 55, 247),#47b2ff);
+    margin-bottom: -20%;
+}
+.about_us h1{
+    font-size: 40px;
+    font-weight: bolder;
+}
+.aboutus {
+    position: relative;
+    display: inline-block;
+    margin-top: 35px;
+    margin-left: 20%;
+    margin-bottom: 30px;
+    width: 50%;
+    height: 500px;
+    background-size: cover;
+    background-position: center center;
+    transition: transform 0.5s ease;
+  }
+  
+  .aboutus:hover {
+    transform: scale(1.1);
+  }
 
-                    <h3>How Scorpion Crime Tracker Works</h3>
-                    <p>Scorpion Crime Tracker allows users to report crimes they have witnessed or experienced directly through our user-friendly interface. The reports can include details such as the type of crime, location, date, and any relevant information that can assist law enforcement agencies in their investigations.</p>
-
-                    <p>Once a report is submitted, it becomes part of our centralized database, which helps us analyze crime patterns, identify hotspots, and generate valuable insights. This information is made available to law enforcement agencies and community members, enabling them to take proactive measures to prevent and combat crime.</p>
-
-                    <h3>Our Commitment</h3>
-                    <p>At Scorpion Crime Tracker, we are committed to maintaining the privacy and security of our users' information. We adhere to strict data protection protocols and ensure that all personal information is handled with utmost care. We believe in the power of community collaboration and the positive impact it can have on crime prevention.</p>
-
-                    <p>Join us in the fight against crime and help create safer neighborhoods for everyone. Together, we can make a difference!</p>
+  .aboutus .description {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    padding-top: 80px;
+  }
+  .aboutus:hover .description {
+    opacity: 2;
+  }
+  .aboutus .description h2 {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: rgb(130, 177, 247);
+    font-size: 50px;
+    font-family: 'Alkatra', cursive;
+    font-family: 'Rubik', sans-serif;  
+}
+  .aboutus .description h2:hover{
+    color: white;
+  }
+  .aboutus .description p {
+    font-size: 20px;
+    margin-top: 10%;
+    font-family: 'Alkatra', cursive;
+    font-family: 'Rubik', sans-serif;  
+}
+</style>
+        <!-- SUB BANNER -->
+        <section class="section-sub-banner">
+            <div class="sub-banner">
+                <div class="container">
+                    <div class="text text-center">
+                        <h2>About Scorpion Crime Tracker</h2>
+                    </div>
                 </div>
             </div>
+        </section>
+
+
+        <!-- aboutus -->
+    <section class="about_us">
+        <div class="aboutus" style="background-image: url('images/about1.jpg')">
+            <div class="description">
+                <h2>Seamless Process</h2>
+                <p>Report crimes directly through our user-friendly interface, providing essential details for effective law enforcement investigations. Your submissions become part of a centralized database, enabling crime pattern analysis and empowering communities and authorities with valuable insights for proactive crime prevention.</p>
+            </div>
         </div>
-    </div>
-</div>
+        <div class="aboutus" style="background-image: url('images/about2.jpg')">
+            <div class="description">
+                <h2>Your Security, Our Priority</h2>
+                <p>At Scorpion Crime Tracker, we prioritize your privacy and security with stringent data protection protocols. Join our community-driven approach to combat crime and build safer neighborhoods. Together, we can make a difference!</p>           
+            </div>
+        </div>        
+    </section>
 @endsection
