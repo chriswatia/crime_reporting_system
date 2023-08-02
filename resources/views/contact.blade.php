@@ -31,6 +31,8 @@
     color:#ffffff;
     font-size:30px;
     font-weight: bold;
+    font-family: 'Alkatra', cursive;
+    font-family: 'Rubik', sans-serif;
 }
 .contact_us {
     background: linear-gradient(to bottom,#000000, rgb(55, 55, 247),#47b2ff);
@@ -44,18 +46,20 @@
     position: relative;
     display: inline-block;
     margin-top: 35px;
-    margin-left: 10%;
-    margin-bottom: 40px;
-    width: 80%;
-    height: 700px;
+    /* margin-left: 10%; */
+    margin-bottom: -6px;
+    /* margin-right: 30px; */
+    width: 100%;
+    height: 850px;
     background-size: cover;
     background-position: center center;
     transition: transform 0.5s ease;
+    
   }
   
-  .contactus:hover {
+  /* .contactus:hover {
     transform: scale(1.1);
-  }
+  } */
 
   .contactus .description {
     position: absolute;
@@ -67,43 +71,36 @@
     transition: opacity 0.5s ease;
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
-    text-align: center;
+    /* text-align: center; */
     padding-top: 80px;
   }
   .contactus:hover .description {
     opacity: 2;
   }
-  .contactus .description h2 {
-    text-transform: uppercase;
-    font-weight: bold;
-    color: rgb(130, 177, 247);
-    font-size: 50px;
-    font-family: 'Alkatra', cursive;
-    font-family: 'Rubik', sans-serif;  
-}
-  .contactus .description h2:hover{
-    color: white;
-  }
+
   .contactus .description p {
     /* text-transform: uppercase; */
     font-size: 20px;
     font-family: 'Alkatra', cursive;
-    font-family: 'Rubik', sans-serif;  
+    font-family: 'Rubik', sans-serif;
+    margin-left: 250px;
 }
 
 .contactus .description h3 {
     font-size: 20px;
     font-family: 'Alkatra', cursive;
     font-family: 'Rubik', sans-serif;
+    margin-left: 300px;
+    font-weight: bolder;
 
 }
 </style>
-        <!-- SUB BANNER -->
         <section class="section-sub-banner">
             <div class="sub-banner">
                 <div class="container">
                     <div class="text text-center">
                         <h2>CONTACT US</h2>
+                        <p>Please allow up to 24 hours for a response. Thank you for your patience.</p>
                     </div>
                 </div>
             </div>
@@ -115,60 +112,27 @@
         <div class="contactus" style="background-image: url('images/contact.jpg')">
             <div class="description">
                 
-                    {{-- <p>Thank you for your interest in Scorpion Crime Tracker. We value your feedback, inquiries, and suggestions. Please feel free to reach out to us using the contact details provided below:</p> --}}
-
                     <h3>General Inquiries</h3>
                     <p>Email: info@scorpiontracker.com</p>
                     <p>Phone: +254 712 345 678</p>
+                    <br>
 
                     <h3>Technical Support</h3>
                     <p>Email: support@scorpiontracker.com</p>
                     <p>Phone: +254 722 987 654</p>
+                    <br>
 
                     <h3>Partnerships</h3>
                     <p>Email: partnerships@scorpiontracker.com</p>
                     <p>Phone: +254 733 456 789</p>
+                    <br>
 
                     <h3>Address</h3>
                     <p>Scorpion Crime Tracker Headquarters</p>
                     <p>123 Main Street</p>
                     <p>Eldoret, Kenya</p>
 
-                    <p>We strive to respond to all inquiries promptly. Please allow up to 24 hours for a response. Thank you for your patience.</p>
             </div>
         </div>       
     </section>
-{{-- <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Contact Us') }}</div>
-
-                <div class="card-body">
-                    <h2>Contact Scorpion Crime Tracker</h2>
-                    <p>Thank you for your interest in Scorpion Crime Tracker. We value your feedback, inquiries, and suggestions. Please feel free to reach out to us using the contact details provided below:</p>
-
-                    <h3>General Inquiries</h3>
-                    <p>Email: info@scorpiontracker.com</p>
-                    <p>Phone: +254 712 345 678</p>
-
-                    <h3>Technical Support</h3>
-                    <p>Email: support@scorpiontracker.com</p>
-                    <p>Phone: +254 722 987 654</p>
-
-                    <h3>Partnerships</h3>
-                    <p>Email: partnerships@scorpiontracker.com</p>
-                    <p>Phone: +254 733 456 789</p>
-
-                    <h3>Address</h3>
-                    <p>Scorpion Crime Tracker Headquarters</p>
-                    <p>123 Main Street</p>
-                    <p>Eldoret, Kenya</p>
-
-                    <p>We strive to respond to all inquiries promptly. Please allow up to 24 hours for a response. Thank you for your patience.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 @endsection

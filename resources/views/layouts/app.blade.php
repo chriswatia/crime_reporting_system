@@ -18,6 +18,22 @@
     <!-- Styles -->
     {{-- <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    <style>
+        .navbar-nav .nav-link {
+            font-size: 18px; 
+            margin-right: 25px;
+            font-family: 'Alkatra', cursive;
+            font-family: 'Rubik', sans-serif;
+        }
+        .navbar-brand {
+            font-size: 30px; 
+            font-weight: bold; 
+            margin-left: -250px;
+            font-family: 'Alkatra', cursive;
+            font-family: 'Rubik', sans-serif;
+        }
+    </style>
 </head>
 <body>
     <div id="app">

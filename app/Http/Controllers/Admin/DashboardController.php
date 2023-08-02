@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UnassignedCrimeExport;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
 use App\Exports\CrimeUnderInvestigationExport;
 
@@ -238,7 +238,8 @@ class DashboardController extends Controller
         $name = $user->firstname;
         $message = "Hello ".$name.", crime Ref - ".$crime->crime_no." has new evidence : " .$request->description;
 
-        $body = "Your crime Ref - ".$crime_no." has new evidence : " .$request->description;
+        $body = "Your crime Ref - ".$crime->crime_no." has new evidence : " .$request->description;
+        // $body = "Your crime Ref - ".$crime_no." has new evidence : " .$request->description;
         //Send Mail
         Mail::to($user->email)->send(new CrimeNotificationMail($name, $body));
         $client = new Client($sid, $token);

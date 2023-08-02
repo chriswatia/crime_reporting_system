@@ -32,15 +32,15 @@
     font-size:30px;
     font-weight: bold;
 }
-.contact_us {
+.services {
     background: linear-gradient(to bottom,#000000, rgb(55, 55, 247),#47b2ff);
     margin-bottom: -20%;
 }
-.contact_us h1{
+.services h1{
     font-size: 40px;
     font-weight: bolder;
 }
-.contactus {
+.service {
     position: relative;
     display: inline-block;
     margin-top: 35px;
@@ -53,11 +53,11 @@
     transition: transform 0.5s ease;
   }
   
-  .contactus:hover {
+  .service:hover {
     transform: scale(1.1);
   }
 
-  .contactus .description {
+  .service .description {
     position: absolute;
     top: 0;
     left: 0;
@@ -70,10 +70,10 @@
     text-align: center;
     padding-top: 80px;
   }
-  .contactus:hover .description {
+  .service:hover .description {
     opacity: 2;
   }
-  .contactus .description h2 {
+  .service .description h2 {
     text-transform: uppercase;
     font-weight: bold;
     color: rgb(130, 177, 247);
@@ -81,10 +81,10 @@
     font-family: 'Alkatra', cursive;
     font-family: 'Rubik', sans-serif;  
 }
-  .contactus .description h2:hover{
+  .service .description h2:hover{
     color: white;
   }
-  .contactus .description p {
+  .service .description p {
     font-size: 20px;
     margin-top: 10%;
     font-family: 'Alkatra', cursive;
@@ -103,9 +103,9 @@
         </section>
 
 
-        <!-- contactus -->
-    <section class="contact_us">
-        <div class="contactus" style="background-image: url('images/services.jpg')">
+        <!-- service -->
+    <section class="services">
+        <div class="service" style="background-image: url('images/services.jpg')">
             <div class="description">
                 <h2>Crime Reporting</h2>
                 <p>Our platform allows users to report crimes they have witnessed or experienced. By providing a user-friendly interface, we make it easy for individuals to submit detailed reports, including crime type, location, date, and any relevant information. These reports contribute to our centralized database and help generate valuable insights for law enforcement agencies.</p>
